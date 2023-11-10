@@ -66,14 +66,14 @@ td {
 
 /* Panel */
 .contenedor {
-  max-width: 1600px;
   margin: 0 auto;
-  width: 200rem;
+  min-width: 200rem;
 }
 
 @media (min-width: 900px) {
   .contenedor {
-    width: 100%;
+    max-width: 200rem;
+    min-width: auto;
   }
 }
 

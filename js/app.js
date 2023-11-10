@@ -424,6 +424,7 @@ function crearEstadisticas() {
   celdaTotalMaximo.textContent = formatDuration(
     moment.duration(totalMaximo, "seconds")
   );
+  celdaTotalMaximo.classList.add("total-maximo");
   filaTotalMaximo.appendChild(celdaTotalMaximo);
   tabla.appendChild(filaTotalMaximo);
 
