@@ -408,14 +408,14 @@ function crearEstadisticas() {
 
   // Calcular el total máximo
   let totalMaximo = 0;
+  let totalesPorDia = Array(encabezados.length).fill(0);
   for (let i = 1; i < encabezados.length; i++) {
     // Empezar en 1 para saltar la columna 'Tipo'
     let celdaTotal = tabla.rows[tabla.rows.length - 1].cells[i];
     let duracionTotal = moment.duration(celdaTotal.textContent).asSeconds();
-    if (duracionTotal > totalMaximo) {
-      totalMaximo = duracionTotal;
-    }
+    totalesPorDia[i] = duracionTotal;
   }
+  totalMaximo = totalesPorDia.reduce((a, b) => a + b, 0);
 
   // Crear una nueva fila para el total máximo
   let filaTotalMaximo = document.createElement("tr");
@@ -424,7 +424,6 @@ function crearEstadisticas() {
   celdaTotalMaximo.textContent = formatDuration(
     moment.duration(totalMaximo, "seconds")
   );
-  celdaTotalMaximo.classList.add("total-maximo");
   filaTotalMaximo.appendChild(celdaTotalMaximo);
   tabla.appendChild(filaTotalMaximo);
 
