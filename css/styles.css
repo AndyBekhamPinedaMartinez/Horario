@@ -40,6 +40,10 @@ table {
   width: 95%;
 }
 
+.contenedor-tablas {
+  padding: 0 2rem;
+}
+
 .table-pdf {
   margin: 2rem auto;
 }
