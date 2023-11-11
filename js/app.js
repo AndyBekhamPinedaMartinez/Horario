@@ -27,6 +27,7 @@ const tiposCursos = [
   "Revisión de Cuaderno",
   "Horas de Preparación",
   "Labores de Instrucción",
+  "Ninguno",
 ];
 
 const diasHorario = [
@@ -352,17 +353,20 @@ function crearEstadisticas() {
 
   // Crear las filas de tipos
   for (let tipo of tiposCursos) {
-    let fila = document.createElement("tr");
-    for (let i = 0; i < encabezados.length; i++) {
-      let td = document.createElement("td");
-      if (i === 0) {
-        td.textContent = tipo; // Primera columna: tipo
-      } else {
-        td.textContent = "00:00:00"; // Resto de las columnas: inicializar a '00:00:00'
+    if (tipo !== "Ninguno") {
+      // Agregar esta condición
+      let fila = document.createElement("tr");
+      for (let i = 0; i < encabezados.length; i++) {
+        let td = document.createElement("td");
+        if (i === 0) {
+          td.textContent = tipo; // Primera columna: tipo
+        } else {
+          td.textContent = "00:00:00"; // Resto de las columnas: inicializar a '00:00:00'
+        }
+        fila.appendChild(td);
       }
-      fila.appendChild(td);
+      tabla.appendChild(fila);
     }
-    tabla.appendChild(fila);
   }
 
   // Añadir una fila para el total
@@ -380,30 +384,33 @@ function crearEstadisticas() {
 
   // Llenar las celdas con los datos de los cursos
   for (let curso of cursos) {
-    let columnaDia = encabezados.indexOf(curso.dia);
-    let filaTipo = tiposCursos.indexOf(curso.tipo) + 1; // +1 porque la primera fila es el encabezado
-    let celda = tabla.rows[filaTipo].cells[columnaDia];
-    let duracionCurso = moment(curso.horaFin, "h:mma").diff(
-      moment(curso.horaInicio, "h:mma"),
-      "seconds"
-    );
-    let duracionActual = moment.duration(celda.textContent).asSeconds();
-    let nuevaDuracion = moment.duration(
-      duracionActual + duracionCurso,
-      "seconds"
-    );
-    celda.textContent = formatDuration(nuevaDuracion);
+    if (curso.tipo !== "Ninguno") {
+      // Agregar esta condición
+      let columnaDia = encabezados.indexOf(curso.dia);
+      let filaTipo = tiposCursos.indexOf(curso.tipo) + 1; // +1 porque la primera fila es el encabezado
+      let celda = tabla.rows[filaTipo].cells[columnaDia];
+      let duracionCurso = moment(curso.horaFin, "h:mma").diff(
+        moment(curso.horaInicio, "h:mma"),
+        "seconds"
+      );
+      let duracionActual = moment.duration(celda.textContent).asSeconds();
+      let nuevaDuracion = moment.duration(
+        duracionActual + duracionCurso,
+        "seconds"
+      );
+      celda.textContent = formatDuration(nuevaDuracion);
 
-    // Actualizar el total para el día
-    let celdaTotal = tabla.rows[tabla.rows.length - 1].cells[columnaDia];
-    let duracionTotalActual = moment
-      .duration(celdaTotal.textContent)
-      .asSeconds();
-    let nuevaDuracionTotal = moment.duration(
-      duracionTotalActual + duracionCurso,
-      "seconds"
-    );
-    celdaTotal.textContent = formatDuration(nuevaDuracionTotal);
+      // Actualizar el total para el día
+      let celdaTotal = tabla.rows[tabla.rows.length - 1].cells[columnaDia];
+      let duracionTotalActual = moment
+        .duration(celdaTotal.textContent)
+        .asSeconds();
+      let nuevaDuracionTotal = moment.duration(
+        duracionTotalActual + duracionCurso,
+        "seconds"
+      );
+      celdaTotal.textContent = formatDuration(nuevaDuracionTotal);
+    }
   }
 
   // Calcular el total máximo
