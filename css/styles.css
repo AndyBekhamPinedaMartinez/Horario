@@ -1,7 +1,13 @@
 html {
   height: auto;
-  font-size: 40%;
+  font-size: 35%;
   box-sizing: border-box;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 40%;
+  }
 }
 
 @media (min-width: 1200px) {
@@ -30,18 +36,12 @@ body {
 table {
   border-collapse: collapse;
   min-width: 768px;
-  margin: 2rem 0 4rem 34rem;
+  margin: 30rem auto 4rem auto;
   width: 95%;
 }
 
-@media (min-width: 900px) {
-  table {
-    margin: 30rem auto 4rem auto;
-  }
-
-  .estadisticas {
-    margin: 0 auto 4rem auto;
-  }
+.estadisticas {
+  margin: 0 auto 4rem auto;
 }
 
 .horario-ver {
@@ -67,61 +67,40 @@ td {
 /* Panel */
 .contenedor {
   margin: 0 auto;
-  min-width: 200rem;
-}
-
-@media (min-width: 900px) {
-  .contenedor {
-    max-width: 200rem;
-    min-width: auto;
-  }
+  max-width: 200rem;
 }
 
 .contenedor-panel {
-  position: fixed;
-  min-width: 30rem;
-  height: 90%;
-  top: 5%;
+  position: absolute;
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  flex-direction: row;
+  height: 25rem;
+  justify-content: space-around;
+  top: 0;
+  width: 100%;
+  max-width: 1600px;
+  min-width: 768px;
 }
 
-@media (min-width: 900px) {
+@media (min-width: 768px) {
   .contenedor-panel {
-    flex-direction: row;
-    height: 25rem;
-    min-width: unset;
-    justify-content: space-around;
-    top: 0;
-    width: 100%;
-    max-width: 1600px;
+    position: fixed;
   }
 }
 
 .panel {
   display: flex;
-  flex-direction: column;
-  justify-content: space-around;
   border: 1px solid black;
-  padding: 0 1rem;
-  border-radius: 0 2rem 2rem 0;
+  flex-direction: row;
+  height: auto;
+  border-radius: 0 0 2rem 2rem;
+  width: 75%;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  padding: 0 2rem;
+  position: relative;
   background-color: azure;
-  height: 85%;
-}
-
-@media (min-width: 900px) {
-  .panel {
-    flex-direction: row;
-    height: auto;
-    border-radius: 0 0 2rem 2rem;
-    width: 75%;
-    align-items: center;
-    justify-content: center;
-    gap: 2rem;
-    padding: 0 2rem;
-    position: relative;
-  }
 }
 
 .form-group {
@@ -178,17 +157,11 @@ input[type="text"] {
   border: none;
   border-radius: 1rem;
   cursor: pointer;
-  font-size: 2rem;
+  font-size: 2.2rem;
   font-weight: 700;
   transition: background-color 0.3s;
-}
-
-@media (min-width: 900px) {
-  .insertar {
-    margin-top: 1rem;
-    height: 7rem;
-    font-size: 2.2rem;
-  }
+  margin-top: 1rem;
+  height: 7rem;
 }
 
 .insertar:hover {
@@ -198,27 +171,18 @@ input[type="text"] {
 #resetear,
 #guardar {
   padding: 1rem;
-  width: 50%;
-  margin: 0 auto;
+  width: 10%;
+  margin: auto 0;
   border: none;
   background-color: rgb(235, 7, 7);
   border-radius: 2rem;
-  font-size: 2rem;
+  font-size: 2.2rem;
   font-weight: 700;
   cursor: pointer;
   border: 1px solid #e1e1e1;
   transition: background-color 0.3s;
   color: white;
-}
-
-@media (min-width: 900px) {
-  #resetear,
-  #guardar {
-    width: 10%;
-    height: 10rem;
-    margin: auto 0;
-    font-size: 2.2rem;
-  }
+  height: 10rem;
 }
 
 #resetear:hover,
@@ -233,35 +197,21 @@ input[type="text"] {
 }
 
 .error {
+  position: absolute;
   text-align: center;
   background-color: red;
   padding: 1rem;
   border-radius: 1rem;
-  font-size: 2rem;
+  font-size: 2.5rem;
   font-weight: 500;
   color: white;
-  width: 100%;
+  width: 90%;
+  bottom: 1.5rem;
 }
 
 .error p {
   margin: 0;
 }
-
-@media (min-width: 900px) {
-  .error {
-    position: absolute;
-    width: 90%;
-    background-color: red;
-    color: white;
-    bottom: 1.5rem;
-    font-size: 2.5rem;
-    padding: 1rem;
-    text-align: center;
-    border-radius: 1rem;
-    font-weight: 500;
-  }
-}
-
 .total-maximo {
   font-weight: 700;
   font-size: 3rem;
