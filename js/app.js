@@ -8,6 +8,8 @@ const finHora = document.querySelector("#hora-fin");
 const insertar = document.querySelector("#insertar");
 const panel = document.querySelector(".panel");
 const resetear = document.querySelector("#resetear");
+const guardar = document.querySelector("#guardar");
+const contenedorTablas = document.querySelector(".contenedor-tablas");
 
 /* Cursos */
 let cursos = [];
@@ -99,15 +101,44 @@ document.addEventListener("DOMContentLoaded", () => {
 
   insertar.addEventListener("click", validar);
   resetear.addEventListener("click", () => {
-    console.log("si");
     reiniciarPanel();
     cursos = [];
     borrarTablas();
     crearHorario();
     crearEstadisticas();
   });
+
+  guardar.addEventListener("click", () => {
+    añadirQuitarMargin("agregar");
+    const contenedorTablas = document.querySelector(".contenedor-tablas");
+    convertirPdf(contenedorTablas);
+  });
 });
 /* Funciones */
+function convertirPdf(element) {
+  window.jsPDF = window.jspdf.jsPDF;
+  html2canvas(element).then((canvas) => {
+    var imgData = canvas.toDataURL("image/png");
+    var imgWidth = 210; // Anchura en milímetros de una página A4
+    var pageHeight = (imgWidth * canvas.height) / canvas.width;
+    var doc = new jsPDF("p", "mm", [imgWidth, pageHeight]);
+    doc.addImage(imgData, "PNG", 0, 0, imgWidth, pageHeight);
+    doc.save("horario.pdf");
+    añadirQuitarMargin("quitar");
+  });
+}
+
+function añadirQuitarMargin(type) {
+  if (type === "agregar") {
+    document.querySelector(".horario").classList.add("table-pdf");
+    return;
+  }
+  if (type === "quitar") {
+    document.querySelector(".horario").classList.remove("table-pdf");
+    return;
+  }
+}
+
 function validar(e) {
   /* comprobar si los campos estan vacios*/
   e.preventDefault();
@@ -274,7 +305,7 @@ function crearHorario() {
   // ...
 
   // Agregar la tabla al documento
-  contenedor.appendChild(tabla);
+  contenedorTablas.appendChild(tabla);
 }
 
 function validarHoras(inicio, fin) {
@@ -436,7 +467,7 @@ function crearEstadisticas() {
   tabla.appendChild(filaTotalMaximo);
 
   // Añadir la tabla al cuerpo del documento
-  contenedor.appendChild(tabla);
+  contenedorTablas.appendChild(tabla);
 }
 
 function formatDuration(duracion) {

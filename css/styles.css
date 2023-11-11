@@ -40,6 +40,10 @@ table {
   width: 95%;
 }
 
+.table-pdf {
+  margin: 2rem auto;
+}
+
 .estadisticas {
   margin: 0 auto 4rem auto;
 }
